@@ -20,7 +20,7 @@ function checkifexists(req, res) {
             const check = true;
             const  { works, expires } = checkifexpires(result, check)
                 res.json({
-                    id: result[0].id,
+                    "id": result[0].id,
                     "license":result[0].license,
                     "type":result[0].type,
                     "owner": result[0].owner,
@@ -29,7 +29,7 @@ function checkifexists(req, res) {
                 }) 
             } else {
             res.json({
-                id: "none",
+                "id": "none",
                 "license":"none",
                 "type":"none",
                 "owner": "none",
