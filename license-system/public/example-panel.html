@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+        }
+        form {
+            display: grid;
+            place-items: center;
+            justify-content: center;
+            margin-top: 125px;
+        }
+        .box{
+            background-color: #333;
+            width: 460px;
+            height: 500px;
+            display: grid;
+            place-items: center;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0 0 1px rgb(68, 66, 66);
+        }
+    </style>
+</head>
+<body>
+    <form>   
+        <div class="box">
+            <label>Typ licencji</label>
+        <input type="text" id ="type">
+        <label>Właściciel licencji</label>
+        <input type="text" id="owner">
+        <label>Wygaśnięcie licencji</label>
+        <input type="date" id ="expires">
+        <button type="submit" id="submit">Utwórz licencję!</button>
+    </div>   
+    </form>
+    <script>
+        const button = document.getElementById("submit")
+        button.addEventListener('click', () =>{
+            const date = document.getElementById("expires").value
+            const newDate = new Date(date).getTime();
+            const owner = document.getElementById("owner").value
+            const expires = document.getElementById("expires").value
+            const data = new Date(expires).getTime()
+            const type = document.getElementById("type").value
+            const licensekey = () => Array.from({length: 15}, () => Math.random().toString(36).charAt(2)).join('')
+            fetch('http://localhost:3000/createlicense/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    license: licensekey(), 
+                    licensetype: type,
+                    owner: owner,
+                    expires: data
+                })
+            }).then(res => res.json()).then(data => {
+       console.log(data.licenseid)
+      })
+  })
+        </script>
+</body>
+</html>
