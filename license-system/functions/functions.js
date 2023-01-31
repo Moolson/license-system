@@ -10,5 +10,8 @@ module.exports = {
     },
     createlicense: function(req, res) {
         addlicense(req, res)
+    },
+    error: function(req, res) {
+        res.send('<center>PAGE NOT FOUND</center>')
     }
 }
